@@ -1003,53 +1003,56 @@ const OSINT_DATA = [
 
 const MOCK = {
   alertes:[
-    { source:'CERT-FR', title:'Vulnérabilité dans Cisco Catalyst (16 juin 2026) – CVE-2026-20262 activement exploitée', date:'16/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0756/' },
-    { source:'CERT-FR', title:'Multiples vulnérabilités dans Redmine (16 juin 2026) – RCE, confidentialité, intégrité', date:'16/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0754/' },
-    { source:'CERT-FR', title:'Vulnérabilité dans Oracle PeopleSoft (12 juin 2026) – CVE-2026-35273 exploitée depuis le 27 mai', date:'12/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0749/' },
-    { source:'CERT-FR', title:'Vulnérabilité dans F5 BIG-IP Access Policy Manager (31 mars 2026) – CVE-2025-53521 exploitée', date:'31/03/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-004/' },
-    { source:'CERT-FR', title:'Panorama de la cybermenace 2025 – frontière état/cybercriminel effacée', date:'11/03/2026', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-002/' },
-    { source:'CERT Santé', title:'Neutralisation des EDR comme étape préparatoire systématique des attaquants', date:'10/06/2026', url:'https://cyberveille.esante.gouv.fr/liste/actualites' },
+    { source:'CERT-FR Avis', title:'Vulnérabilité dans Kubernetes API Server (22 juin 2026) – CVE-2026-45892 exploitation en cours', date:'22/06/2026 · 14:20h', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0762/' },
+    { source:'CERT-FR Alerte', title:'Campagne de phishing ciblant le secteur santé (22 juin 2026) – exploitation active observée', date:'22/06/2026 · 11:05h', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-008/' },
+    { source:'CERT-FR CTI', title:'APT28 : ciblage d\'institutions européennes et sous-traitants critiques (21 juin 2026)', date:'21/06/2026 · 18:45h', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-004/' },
+    { source:'CERT-FR Avis', title:'Vulnérabilité critique dans VMware vSphere (21 juin 2026) – CVE-2026-40145', date:'21/06/2026 · 09:30h', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0760/' },
+    { source:'CERT-FR DUR', title:'Recommandations de renforcement pour établissements de santé (20 juin 2026)', date:'20/06/2026 · 16:15h', url:'https://www.cert.ssi.gouv.fr/dur/CERTFR-2026-DUR-005/' },
+    { source:'CERT-FR Actualités', title:'Bulletin CERT-FR du 20 juin 2026', date:'20/06/2026 · 08:10h', url:'https://www.cert.ssi.gouv.fr/actualite/CERTFR-2026-ACT-028/' },
   ],
   cve:[
-    { source:'Help Net Security', title:'Cisco discloses second exploited SD-WAN vulnerability in two weeks (CVE-2026-20262)', date:'16/06/2026', url:'https://www.helpnetsecurity.com/' },
-    { source:'SecurityWeek', title:'Cisco Patches Another SD-WAN Zero-Day – CVE-2026-20182, 6e exploitée en 2026 (UAT-8616)', date:'15/05/2026', url:'https://www.securityweek.com/cisco-patches-another-sd-wan-zero-day-the-sixth-exploited-in-2026/' },
-    { source:'Help Net Security', title:'Researchers release PoC for exploited Check Point VPN flaw (CVE-2026-50751) – lien Qilin ransomware', date:'12/06/2026', url:'https://www.helpnetsecurity.com/2026/06/12/cve-2026-50751-poc-exploit/' },
-    { source:'The Hacker News', title:'Critical Splunk Enterprise Flaw Lets Attackers Run Code Without Authentication (CVE-2026-20253, CVSS 9.8)', date:'13/06/2026', url:'https://thehackernews.com/2026/06/critical-splunk-enterprise-flaw-lets.html' },
-    { source:'SecurityWeek', title:'OpenSSL Patches High-Severity Vulnerability Found With AI – CVE-2026-45447, use-after-free PKCS#7', date:'10/06/2026', url:'https://www.securityweek.com/openssl-patches-high-severity-vulnerability-found-with-ai/' },
-    { source:'CERT-FR', title:'Vulnérabilité dans Oracle PeopleSoft – CVE-2026-35273 exploitée depuis le 27 mai 2026', date:'12/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0749/' },
+    { source:'CERT-FR Avis', title:'Vulnérabilité dans Kubernetes API Server (CVE-2026-45892) activement exploitée', date:'22/06/2026 · 14:20h', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0762/' },
+    { source:'SecurityWeek', title:'Cisco patches another SD-WAN zero-day (CVE-2026-20182)', date:'22/06/2026 · 12:00h', url:'https://www.securityweek.com/cisco-patches-another-sd-wan-zero-day-the-sixth-exploited-in-2026/' },
+    { source:'Help Net Security', title:'PoC released for exploited Check Point VPN flaw (CVE-2026-50751)', date:'21/06/2026 · 17:35h', url:'https://www.helpnetsecurity.com/2026/06/12/cve-2026-50751-poc-exploit/' },
+    { source:'The Hacker News', title:'Critical Splunk Enterprise flaw enables unauthenticated RCE (CVE-2026-20253)', date:'21/06/2026 · 10:25h', url:'https://thehackernews.com/2026/06/critical-splunk-enterprise-flaw-lets.html' },
+    { source:'BleepingComputer', title:'Oracle mitigates PeopleSoft zero-day exploited in data theft attacks', date:'20/06/2026 · 15:40h', url:'https://www.bleepingcomputer.com/news/security/oracle-mitigates-peoplesoft-zero-day-exploited-in-data-theft-attacks/' },
+    { source:'Help Net Security', title:'OpenSSL patches high-severity vulnerability found with AI', date:'20/06/2026 · 08:55h', url:'https://www.securityweek.com/openssl-patches-high-severity-vulnerability-found-with-ai/' },
   ],
   sante:[
-    { source:'Malwarebytes', title:'NYC Health + Hospitals : fuite de données biométriques, diagnostics et coordonnées bancaires (1,8M de personnes)', date:'24/03/2026', url:'https://www.malwarebytes.com/blog/news/2026/05/biometrics-diagnoses-and-bank-details-exposed-in-major-healthcare-breach' },
-    { source:'Health IT Answers', title:'University of Mississippi Medical Center : ransomware ferme 35 cliniques externes, EHR Epic compromis', date:'03/06/2026', url:'https://www.healthitanswers.net/healthcare-cybersecurity-now-a-regulatory-issue-not-just-an-it-problem/' },
-    { source:'CERT Santé', title:'Neutralisation des EDR comme étape préparatoire systématique des attaquants – début 2026', date:'10/06/2026', url:'https://cyberveille.esante.gouv.fr/liste/actualites' },
-    { source:'CERT Santé', title:'Fuites de données santé médiatisées : souvent des réexpositions de données anciennes via scraping', date:'05/06/2026', url:'https://cyberveille.esante.gouv.fr/liste/actualites' },
-    { source:'BleepingComputer', title:'Pharma giant Novo Nordisk discloses breach of clinical trials data', date:'12/06/2026', url:'https://www.bleepingcomputer.com/news/security/pharmaceutical-giant-novo-nordisk-discloses-security-breach/' },
-    { source:'CERT Santé', title:'AWS – campagne active 11 janvier-18 février 2026 visant des appliances FortiGate exposées', date:'20/02/2026', url:'https://cyberveille.esante.gouv.fr/liste/actualites' },
+    { source:'CERT Santé', title:'Campagne active contre appliances FortiGate exposées impactant des structures de santé', date:'22/06/2026 · 13:10h', url:'https://cyberveille.esante.gouv.fr/liste/actualites' },
+    { source:'BleepingComputer', title:'Novo Nordisk discloses breach of clinical trials data', date:'22/06/2026 · 09:45h', url:'https://www.bleepingcomputer.com/news/security/pharmaceutical-giant-novo-nordisk-discloses-security-breach/' },
+    { source:'Healthcare IT News', title:'Hospital network incident disrupts imaging and scheduling workflows', date:'21/06/2026 · 16:30h', url:'https://www.healthcareitnews.com/' },
+    { source:'CERT Santé', title:'Neutralisation des EDR comme étape préparatoire systématique des attaquants', date:'21/06/2026 · 11:20h', url:'https://cyberveille.esante.gouv.fr/liste/actualites' },
+    { source:'HIPAA Journal', title:'Healthcare vendor breach exposes patient notification records', date:'20/06/2026 · 14:05h', url:'https://www.hipaajournal.com/feed/' },
+    { source:'CERT Santé', title:'Réexposition de données santé anciennes via scraping automatisé', date:'20/06/2026 · 08:35h', url:'https://cyberveille.esante.gouv.fr/liste/actualites' },
   ],
   menaces:[
-    { source:'SecurityWeek', title:'Verizon DBIR 2026 : l\'exploitation de vulnérabilités dépasse le vol de identifiants comme 1er vecteur de breach', date:'15/06/2026', url:'https://www.securityweek.com/verizon-dbir-2026-vulnerability-exploitation-overtakes-credential-theft-as-top-breach-vector/' },
-    { source:'The Hacker News', title:'Attackers Exploit Three Fortinet FortiSandbox Flaws, One Patched Last Week', date:'16/06/2026', url:'https://thehackernews.com/2026/06/attackers-exploit-three-fortinet.html' },
-    { source:'Help Net Security', title:'Qilin ransomware affiliate exploited Check Point VPN zero-day (CVE-2026-50751) – semaine en revue', date:'14/06/2026', url:'https://www.helpnetsecurity.com/2026/06/14/week-in-review-exploited-check-point-vpn-zero-day-oracle-peoplesoft-servers-under-attack/' },
-    { source:'Krebs on Security', title:'Who Runs the Ransomware Group "The Gentlemen?" – 2e groupe RaaS le plus actif, 332 victimes', date:'10/06/2026', url:'https://krebsonsecurity.com/2026/06/who-runs-the-ransomware-group-the-gentlemen/' },
-    { source:'BleepingComputer', title:'Oracle mitigates PeopleSoft zero-day exploited in data theft attacks (ShinyHunters)', date:'11/06/2026', url:'https://www.bleepingcomputer.com/news/security/oracle-mitigates-peoplesoft-zero-day-exploited-in-data-theft-attacks/' },
-    { source:'BleepingComputer', title:'Chinese hackers hijack auth flow, spy on isolated network for a decade', date:'13/06/2026', url:'https://www.bleepingcomputer.com/news/security/chinese-hackers-hijack-auth-flow-spy-on-isolated-network-for-a-decade/' },
+    { source:'Dark Reading', title:'Stressors, AI Forcing Changes to Cybersecurity Teams', date:'22/06/2026 · 15:00h', url:'https://www.darkreading.com/' },
+    { source:'SecurityWeek', title:'Verizon DBIR 2026: vulnerability exploitation overtakes credential theft', date:'22/06/2026 · 12:40h', url:'https://www.securityweek.com/verizon-dbir-2026-vulnerability-exploitation-overtakes-credential-theft-as-top-breach-vector/' },
+    { source:'The Hacker News', title:'Attackers exploit three Fortinet FortiSandbox flaws, one patched last week', date:'21/06/2026 · 19:10h', url:'https://thehackernews.com/2026/06/attackers-exploit-three-fortinet.html' },
+    { source:'BleepingComputer', title:'Chinese hackers hijack auth flow, spy on isolated network for a decade', date:'21/06/2026 · 13:50h', url:'https://www.bleepingcomputer.com/news/security/chinese-hackers-hijack-auth-flow-spy-on-isolated-network-for-a-decade/' },
+    { source:'Help Net Security', title:'Qilin ransomware affiliate exploited Check Point VPN zero-day', date:'20/06/2026 · 17:20h', url:'https://www.helpnetsecurity.com/2026/06/14/week-in-review-exploited-check-point-vpn-zero-day-oracle-peoplesoft-servers-under-attack/' },
+    { source:'Krebs on Security', title:'Who runs the ransomware group "The Gentlemen?"', date:'20/06/2026 · 09:15h', url:'https://krebsonsecurity.com/2026/06/who-runs-the-ransomware-group-the-gentlemen/' },
   ],
   rgpd:[
-    { source:'CNIL', title:'Données de santé : sanction de 5 millions d\'euros à l\'encontre de la société IQVIA (26 mai 2026)', date:'26/05/2026', url:'https://www.cnil.fr/fr/donnees-sante-sanction-5-millions-iqvia' },
-    { source:'CNIL', title:'Entrepôt de données santé IQVIA : la CNIL rappelle les conditions et le cadre légal ayant permis son autorisation', date:'04/06/2026', url:'https://www.cnil.fr/fr/entrepot-de-donnees-sante-iqvia-cnil-rappelle-conditions-et-cadre-legal-ayant-permis-son-autorisation' },
-    { source:'CNIL', title:'Fuite massive de données de santé : fichier de près de 500 000 personnes publié sur internet', date:'28/05/2026', url:'https://www.cnil.fr/fr/fuite-massive-de-donnees-de-sante-comment-savoir-si-elle-vous-concerne-et-que-pouvez-vous-faire' },
-    { source:'CNIL', title:'Numérique en santé : la CNIL et la HAS s\'engagent pour renforcer les bonnes pratiques', date:'11/03/2026', url:'https://www.cnil.fr/fr/numerique-en-sante-cnil-has' },
-    { source:'CNIL', title:'5e édition du Privacy Research Day – G7 des autorités de protection des données (24 juin 2026)', date:'15/06/2026', url:'https://www.cnil.fr/fr/privacy-research-day' },
-    { source:'CERT-FR', title:'Panorama de la cybermenace 2025 – conformité NIS2 et incidents cyber', date:'11/03/2026', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-002/' },
+    { source:'CNIL', title:'Privacy Research Day 2026 – programme et enjeux IA, santé et conformité', date:'22/06/2026 · 10:50h', url:'https://www.cnil.fr/fr/privacy-research-day' },
+    { source:'CNIL', title:'La CNIL rappelle le cadre légal des entrepôts de données de santé', date:'21/06/2026 · 16:00h', url:'https://www.cnil.fr/fr/entrepot-de-donnees-sante-iqvia-cnil-rappelle-conditions-et-cadre-legal-ayant-permis-son-autorisation' },
+    { source:'CNIL', title:'Fuite massive de données de santé : recommandations aux personnes concernées', date:'21/06/2026 · 09:40h', url:'https://www.cnil.fr/fr/fuite-massive-de-donnees-de-sante-comment-savoir-si-elle-vous-concerne-et-que-pouvez-vous-faire' },
+    { source:'CNIL', title:'Numérique en santé : CNIL et HAS renforcent les bonnes pratiques', date:'20/06/2026 · 15:25h', url:'https://www.cnil.fr/fr/numerique-en-sante-cnil-has' },
+    { source:'CERT-FR CTI', title:'Panorama de la cybermenace 2025 – conformité NIS2 et incidents cyber', date:'20/06/2026 · 11:10h', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-002/' },
+    { source:'Help Net Security', title:'Data privacy enforcement trends impacting healthcare providers', date:'19/06/2026 · 08:45h', url:'https://www.helpnetsecurity.com/feed/' },
   ],
 };
 
 const RSS_FEEDS = {
   alertes:[
-    { url:'https://www.cert.ssi.gouv.fr/alerte/feed/',       name:'CERT-FR Alertes' },
-    { url:'https://www.cert.ssi.gouv.fr/feed/',              name:'CERT-FR Actualités' },
     { url:'https://www.cert.ssi.gouv.fr/avis/feed/',         name:'CERT-FR Avis' },
-    { url:'https://www.helpnetsecurity.com/feed/',            name:'Help Net Security' },
+    { url:'https://www.cert.ssi.gouv.fr/alerte/feed/',       name:'CERT-FR Alertes' },
+    { url:'https://www.cert.ssi.gouv.fr/cti/feed/',          name:'CERT-FR CTI' },
+    { url:'https://www.cert.ssi.gouv.fr/ioc/feed/',          name:'CERT-FR IOC' },
+    { url:'https://www.cert.ssi.gouv.fr/dur/feed/',          name:'CERT-FR DUR' },
+    { url:'https://www.cert.ssi.gouv.fr/actualite/feed/',    name:'CERT-FR Actualités' },
+    { url:'https://www.cert.ssi.gouv.fr/feed/',              name:'CERT-FR Global' },
   ],
   cve:[
     { url:'https://www.cert.ssi.gouv.fr/avis/feed/',         name:'CERT-FR Avis' },
@@ -1112,6 +1115,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initCharts(analyzeThreatActivity([]));
   renderOSINT();
   loadFeedsAndAnalyze();
+  window.setInterval(() => {
+    refreshAllFeeds().catch(err => console.warn('Auto-refresh feeds failed:', err));
+  }, FEED_CACHE_MS);
 });
 
 // Charge tous les flux (RSS + CTI panels) puis recalcule les visuels
@@ -1756,7 +1762,7 @@ function isValidArticleUrl(url) {
 
 // Cache court (sessionStorage) pour éviter de re-frapper les proxies
 // à chaque rechargement de page pendant la même session navigateur.
-const FEED_CACHE_MS = 10 * 60 * 1000; // 10 minutes
+const FEED_CACHE_MS = 5 * 60 * 1000; // 5 minutes
 
 function getCachedFeed(feedUrl) {
   try {
@@ -1841,6 +1847,29 @@ function formatDateTime(date) {
   return `${dateStr} · ${timeStr}h`;
 }
 
+function parseDisplayDate(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return new Date(NaN);
+  const [datePart, timePart = ''] = raw.split(' · ');
+  const [day, month, year] = datePart.split('/').map(Number);
+  if (!day || !month || !year) return new Date(raw);
+
+  let hours = 0;
+  let minutes = 0;
+  if (timePart) {
+    const normalizedTime = timePart.replace(/h$/i, '');
+    const [hh, mm] = normalizedTime.split(':').map(Number);
+    hours = Number.isFinite(hh) ? hh : 0;
+    minutes = Number.isFinite(mm) ? mm : 0;
+  }
+
+  return new Date(year, month - 1, day, hours, minutes, 0, 0);
+}
+
+function sortFeedItemsDesc(items) {
+  return [...items].sort((a, b) => parseDisplayDate(b.date) - parseDisplayDate(a.date));
+}
+
 function hydrateFeedItems(rawItems, sourceName) {
   const cutoff = new Date();
   cutoff.setMonth(cutoff.getMonth() - FRESHNESS_MONTHS);
@@ -1864,10 +1893,9 @@ async function loadFeedPanel(panelId, feedKey) {
   const panel = document.getElementById('panel-' + panelId);
   const feeds = RSS_FEEDS[feedKey];
   const results = await Promise.all(feeds.map(f => fetchFeed(f.url, f.name)));
-  const items = results.filter(Boolean).flat()
-    .sort((a,b) => new Date(b.date.split('/').reverse().join('-')) - new Date(a.date.split('/').reverse().join('-')));
+  const items = sortFeedItemsDesc(results.filter(Boolean).flat());
   if (items.length) items.forEach(collectItem);
-  const finalItems = items.length ? items : MOCK[feedKey];
+  const finalItems = sortFeedItemsDesc(items.length ? items : MOCK[feedKey]).slice(0, 10);
   const isMock = !items.length;
   panelItems[panelId] = { items: finalItems, isMock };
   // Render uniquement si le panneau est actuellement actif
@@ -2059,14 +2087,9 @@ async function loadCTIPanels() {
     { url:'https://www.cert.ssi.gouv.fr/actualite/feed/', source:'ACTUALITÉ', tagCls:'cti-tag-blue' },
   ];
   const certResults = await Promise.all(certFeedDefs.map(f => fetchFeed(f.url, f.source)));
-  const sortByDate = arr => arr.sort((a,b) => {
-    // Extraire juste la date avant ' · ' (format: "22/06/2026 · 14h30")
-    const dateA = a.date.split(' · ')[0];
-    const dateB = b.date.split(' · ')[0];
-    const parseDate = d => new Date(d.split('/').reverse().join('-'));
-    return parseDate(dateB) - parseDate(dateA);
-  });
-  const certItems = certFeedDefs.flatMap((f,i) => sortByDate(certResults[i]||[]).slice(0,4).map(it => ({...it, tagCls:f.tagCls})));
+  const certItems = sortFeedItemsDesc(
+    certFeedDefs.flatMap((f, i) => (certResults[i] || []).map(it => ({ ...it, tagCls: f.tagCls })))
+  ).slice(0, 20);
   if (certItems.length) {
     certItems.forEach(collectItem);
   } else {
@@ -2115,7 +2138,7 @@ function collectItem(it) {
 }
 
 function parseFrDate(d) {
-  const [day,month,year] = d.split('/').map(Number);
+  const [day,month,year] = String(d).split(' · ')[0].split('/').map(Number);
   return new Date(year, month-1, day);
 }
 
