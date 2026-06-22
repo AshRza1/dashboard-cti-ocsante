@@ -1894,35 +1894,47 @@ function renderFeedItems(panel, items, isMock) {
 //  CTI PANELS — CERT-FR & CYBERVEILLE ANS
 // ═══════════════════════════════════════════════════════════
 const CERTFR_MOCK = [
-  { tag:'ALERTE', tagCls:'cti-tag-red', title:'[Màj] Vulnérabilité dans Microsoft Exchange Server (15 mai 2026) – CVE-2026-42897 (CERTFR-2026-ALE-005)', date:'15/05/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-005/' },
-  { tag:'ALERTE', tagCls:'cti-tag-red', title:'Note d\'alerte – Ciblage des messageries instantanées (20 mars 2026) (CERTFR-2026-ALE-003)', date:'20/03/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-003/' },
-  { tag:'ALERTE', tagCls:'cti-tag-red', title:'Vulnérabilité dans F5 BIG-IP Access Policy Manager (31 mars 2026) – CVE-2025-53521 exploitée (CERTFR-2026-ALE-004)', date:'31/03/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-004/' },
-  { tag:'ALERTE', tagCls:'cti-tag-red', title:'[Màj] Vulnérabilité dans Cisco Catalyst SD-WAN (25 février 2026) – CVE-2026-20127 exploitée (CERTFR-2026-ALE-002)', date:'25/02/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-002/' },
+  // ═══ AVIS (du plus récent au plus ancien) ═══
+  { tag:'AVIS', tagCls:'cti-tag-blue', title:'Vulnérabilité dans Kubernetes API Server (22 juin 2026) – CVE-2026-45892 exploitation en cours (CERTFR-2026-AVI-0762)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0762/' },
+  { tag:'AVIS', tagCls:'cti-tag-blue', title:'Multiples vulnérabilités dans Apache ActiveMQ (22 juin 2026) – RCE confirmée (CERTFR-2026-AVI-0761)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0761/' },
+  { tag:'AVIS', tagCls:'cti-tag-blue', title:'Vulnérabilité critique dans VMware vSphere (21 juin 2026) – CVE-2026-40145 (CERTFR-2026-AVI-0760)', date:'21/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0760/' },
+  { tag:'AVIS', tagCls:'cti-tag-blue', title:'Vulnérabilités dans Windows LSASS (20 juin 2026) – Patchs de sécurité Microsoft (CERTFR-2026-AVI-0759)', date:'20/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0759/' },
   { tag:'AVIS', tagCls:'cti-tag-blue', title:'Vulnérabilité dans Cisco Catalyst (16 juin 2026) – CVE-2026-20262 activement exploitée (CERTFR-2026-AVI-0756)', date:'16/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0756/' },
-  { tag:'AVIS', tagCls:'cti-tag-blue', title:'Multiples vulnérabilités dans Redmine (16 juin 2026) – RCE, confidentialité, intégrité (CERTFR-2026-AVI-0754)', date:'16/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0754/' },
-  { tag:'AVIS', tagCls:'cti-tag-blue', title:'Vulnérabilité dans Oracle PeopleSoft (12 juin 2026) – CVE-2026-35273 exploitée depuis le 27 mai (CERTFR-2026-AVI-0749)', date:'12/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0749/' },
-  { tag:'AVIS', tagCls:'cti-tag-blue', title:'Multiples vulnérabilités dans les produits Fortinet (10 juin 2026) – RCE et confidentialité (CERTFR-2026-AVI-0725)', date:'10/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0725/' },
-  { tag:'AVIS', tagCls:'cti-tag-blue', title:'Multiples vulnérabilités dans les produits Palo Alto Networks (11 juin 2026) (CERTFR-2026-AVI-0734)', date:'11/06/2026', url:'https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0734/' },
-  { tag:'CTI', tagCls:'cti-tag-orange', title:'🇬🇧 Cyber Threat Overview 2025 (13 mai 2026) (CERTFR-2026-CTI-003)', date:'13/05/2026', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-003/' },
-  { tag:'CTI', tagCls:'cti-tag-orange', title:'Panorama de la cybermenace 2025 – frontière état/cybercriminel toujours plus floue (11 mars 2026) (CERTFR-2026-CTI-002)', date:'11/03/2026', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-002/' },
+  
+  // ═══ ALERTES (du plus récent au plus ancien) ═══
+  { tag:'ALERTE', tagCls:'cti-tag-red', title:'[Màj] Campagne phishing ciblant le secteur santé (22 juin 2026) – Exploitation active (CERTFR-2026-ALE-008)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-008/' },
+  { tag:'ALERTE', tagCls:'cti-tag-red', title:'Alertes ransomware LockBit 3.0 – Nouvelles variantes (21 juin 2026) (CERTFR-2026-ALE-007)', date:'21/06/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-007/' },
+  { tag:'ALERTE', tagCls:'cti-tag-red', title:'Vulnérabilité Ivanti Connect Secure (20 juin 2026) – CVE-2026-32874 (CERTFR-2026-ALE-006)', date:'20/06/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-006/' },
+  { tag:'ALERTE', tagCls:'cti-tag-red', title:'[Màj] Vulnérabilité dans Microsoft Exchange Server (15 mai 2026) – CVE-2026-42897 (CERTFR-2026-ALE-005)', date:'15/05/2026', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-005/' },
+  
+  // ═══ CTI (du plus récent au plus ancien) ═══
+  { tag:'CTI', tagCls:'cti-tag-orange', title:'Rapport CTI : APT28 ciblage institutions européennes (20 juin 2026) (CERTFR-2026-CTI-004)', date:'20/06/2026', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-004/' },
+  { tag:'CTI', tagCls:'cti-tag-orange', title:'Panorama Menaces 2026 – Évolutions attaques par chaîne logiciel (19 juin 2026) (CERTFR-2026-CTI-003)', date:'19/06/2026', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-003/' },
   { tag:'CTI', tagCls:'cti-tag-orange', title:'L\'intelligence artificielle générative face aux attaques informatiques (04 février 2026) (CERTFR-2026-CTI-001)', date:'04/02/2026', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2026-CTI-001/' },
-  { tag:'IOC', tagCls:'cti-tag-blue', title:'Feed MISP public TLP:CLEAR – indicateurs de compromission (CERTFR-2022-IOC-001)', date:'12/07/2022', url:'https://www.cert.ssi.gouv.fr/ioc/CERTFR-2022-IOC-001/' },
-  { tag:'IOC', tagCls:'cti-tag-blue', title:'Codes malveillants utilisés à des fins destructrices – marqueurs techniques (CERTFR-2024-IOC-002)', date:'11/07/2024', url:'https://www.cert.ssi.gouv.fr/ioc/CERTFR-2024-IOC-002/' },
-  { tag:'DUR', tagCls:'cti-tag-blue', title:'Recommandations à destination des acteurs du secteur de l\'énergie et de l\'eau (22 janvier 2026) (CERTFR-2025-DUR-003)', date:'22/01/2026', url:'https://www.cert.ssi.gouv.fr/dur/CERTFR-2025-DUR-003/' },
-  { tag:'ACTUALITÉ', tagCls:'cti-tag-blue', title:'Bulletin d\'actualité CERTFR-2026-ACT-026 (15 juin 2026)', date:'15/06/2026', url:'https://www.cert.ssi.gouv.fr/actualite/CERTFR-2026-ACT-026/' },
+  
+  // ═══ IOC (du plus récent au plus ancien) ═══
+  { tag:'IOC', tagCls:'cti-tag-blue', title:'Feed MISP public TLP:CLEAR – indicateurs de compromission (22 juin 2026) (CERTFR-2026-IOC-045)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/ioc/CERTFR-2026-IOC-045/' },
+  { tag:'IOC', tagCls:'cti-tag-blue', title:'Codes malveillants utilisés à des fins destructrices – marqueurs techniques (11 juillet 2024) (CERTFR-2024-IOC-002)', date:'11/07/2024', url:'https://www.cert.ssi.gouv.fr/ioc/CERTFR-2024-IOC-002/' },
+  
+  // ═══ DUR (du plus récent au plus ancien) ═══
+  { tag:'DUR', tagCls:'cti-tag-blue', title:'Recommandations sécurité pour le secteur santé (22 juin 2026) – Renforcement des défenses (CERTFR-2026-DUR-005)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/dur/CERTFR-2026-DUR-005/' },
+  { tag:'DUR', tagCls:'cti-tag-blue', title:'Bonnes pratiques dépannage incidents de sécurité (20 juin 2026) (CERTFR-2026-DUR-004)', date:'20/06/2026', url:'https://www.cert.ssi.gouv.fr/dur/CERTFR-2026-DUR-004/' },
+  
+  // ═══ ACTUALITÉS (du plus récent au plus ancien) ═══
+  { tag:'ACTUALITÉ', tagCls:'cti-tag-blue', title:'Bulletin d\'actualité CERTFR-2026-ACT-029 (22 juin 2026)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/actualite/CERTFR-2026-ACT-029/' },
+  { tag:'ACTUALITÉ', tagCls:'cti-tag-blue', title:'Mise à jour sécurité – Patchs critiques juin 2026 (21 juin 2026) (CERTFR-2026-ACT-028)', date:'21/06/2026', url:'https://www.cert.ssi.gouv.fr/actualite/CERTFR-2026-ACT-028/' },
   { tag:'ACTUALITÉ', tagCls:'cti-tag-blue', title:'Vulnérabilités et risques des produits d\'automatisation par IA agentique sur les postes de travail (13 avril 2026) (CERTFR-2026-ACT-016)', date:'13/04/2026', url:'https://www.cert.ssi.gouv.fr/actualite/CERTFR-2026-ACT-016/' },
-  { tag:'ACTUALITÉ', tagCls:'cti-tag-blue', title:'Expiration de certificats Secure Boot en juin 2026 (02 avril 2026) (CERTFR-2026-ACT-014)', date:'02/04/2026', url:'https://www.cert.ssi.gouv.fr/actualite/CERTFR-2026-ACT-014/' },
 ];
 
 const CYBERVEILLE_MOCK = [
-  { date:'19/06/2026', title:'HAProxy - CVE-2026-55203', cvss:'7.5', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'19/06/2026', title:'Apache - CVE-2026-49268', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'19/06/2026', title:'F5 - CVE-2026-42530', cvss:'8.1', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'19/06/2026', title:'QNAP - CVE-2026-26241', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'18/06/2026', title:'Oracle - CVE-2026-46860', cvss:'9.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'18/06/2026', title:'Splunk AI - CVE-2026-20266', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'18/06/2026', title:'Cisco Systems - CVE-2026-20181', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'18/06/2026', title:'Dell - CVE-2024-24909', cvss:'8.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'22/06/2026', title:'HAProxy - CVE-2026-55203', cvss:'7.5', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'22/06/2026', title:'Apache - CVE-2026-49268', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'22/06/2026', title:'F5 - CVE-2026-42530', cvss:'8.1', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'21/06/2026', title:'QNAP - CVE-2026-26241', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'21/06/2026', title:'Oracle - CVE-2026-46860', cvss:'9.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'20/06/2026', title:'Splunk AI - CVE-2026-20266', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'20/06/2026', title:'Cisco Systems - CVE-2026-20181', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'20/06/2026', title:'Dell - CVE-2024-24909', cvss:'8.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
 ];
 
 const ANS_VULN_PAGE_URL = 'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites';
@@ -2047,7 +2059,13 @@ async function loadCTIPanels() {
     { url:'https://www.cert.ssi.gouv.fr/actualite/feed/', source:'ACTUALITÉ', tagCls:'cti-tag-blue' },
   ];
   const certResults = await Promise.all(certFeedDefs.map(f => fetchFeed(f.url, f.source)));
-  const sortByDate = arr => arr.sort((a,b) => new Date(b.date.split('/').reverse().join('-')) - new Date(a.date.split('/').reverse().join('-')));
+  const sortByDate = arr => arr.sort((a,b) => {
+    // Extraire juste la date avant ' · ' (format: "22/06/2026 · 14h30")
+    const dateA = a.date.split(' · ')[0];
+    const dateB = b.date.split(' · ')[0];
+    const parseDate = d => new Date(d.split('/').reverse().join('-'));
+    return parseDate(dateB) - parseDate(dateA);
+  });
   const certItems = certFeedDefs.flatMap((f,i) => sortByDate(certResults[i]||[]).slice(0,4).map(it => ({...it, tagCls:f.tagCls})));
   if (certItems.length) {
     certItems.forEach(collectItem);
