@@ -1834,6 +1834,13 @@ async function _fetchFeedDirect(feedUrl, sourceName) {
   return null;
 }
 
+function formatDateTime(date) {
+  const d = new Date(date);
+  const dateStr = d.toLocaleDateString('fr-FR');
+  const timeStr = d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  return `${dateStr} · ${timeStr}h`;
+}
+
 function hydrateFeedItems(rawItems, sourceName) {
   const cutoff = new Date();
   cutoff.setMonth(cutoff.getMonth() - FRESHNESS_MONTHS);
@@ -1848,7 +1855,7 @@ function hydrateFeedItems(rawItems, sourceName) {
   return fresh.slice(0,10).map(item => ({
     source: sourceName,
     title:  item.title || '(sans titre)',
-    date:   new Date(item.pubDate).toLocaleDateString('fr-FR'),
+    date:   formatDateTime(new Date(item.pubDate)),
     url:    item.link,
   }));
 }
@@ -2028,12 +2035,12 @@ function renderCTIItems(containerId, items) {
 }
 
 async function loadCTIPanels() {
-  // CERT-FR : 5 flux dans l'ordre de priorité — Alertes, CTI/Menaces, IoC, DUR, Actualités
+  // CERT-FR : flux dans l'ordre de priorité — AVIS en premier, puis Alertes, CTI, IoC, DUR, Actualités
   // Le panneau d'affichage dédié a été retiré, mais on continue de récupérer
   // ces flux pour qu'ils alimentent l'analyse dynamique (tendances, types, vecteurs).
   const certFeedDefs = [
-    { url:'https://www.cert.ssi.gouv.fr/alerte/feed/',    source:'ALERTE',    tagCls:'cti-tag-red' },
     { url:'https://www.cert.ssi.gouv.fr/avis/feed/',      source:'AVIS',      tagCls:'cti-tag-blue' },
+    { url:'https://www.cert.ssi.gouv.fr/alerte/feed/',    source:'ALERTE',    tagCls:'cti-tag-red' },
     { url:'https://www.cert.ssi.gouv.fr/cti/feed/',       source:'CTI',       tagCls:'cti-tag-orange' },
     { url:'https://www.cert.ssi.gouv.fr/ioc/feed/',       source:'IOC',       tagCls:'cti-tag-blue' },
     { url:'https://www.cert.ssi.gouv.fr/dur/feed/',       source:'DUR',       tagCls:'cti-tag-blue' },
