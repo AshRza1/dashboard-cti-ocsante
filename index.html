@@ -173,6 +173,8 @@
 
     /* ── CTI LIVE PANELS ── */
     .cti-panel{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+    .cti-site.veille-left{order:1;}
+    .cti-site.ans-right{order:2;}
     .cti-site{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);}
     .cti-site-hdr{padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:var(--bg2);}
     .cti-site-hdr h3{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t2);display:flex;align-items:center;gap:.5rem;}
@@ -454,7 +456,7 @@
 <div class="cti-panel">
 
   <!-- BLOC DE VEILLE (TABLEAU PAR SECTION) -->
-  <div class="cti-site">
+  <div class="cti-site veille-left">
     <div class="cti-site-hdr">
       <h3>Bloc de veille — Sections CERT/CTI/RGPD</h3>
       <span style="font-size:.65rem;color:var(--t3)">Structure conforme au tableau demandé</span>
@@ -532,7 +534,7 @@
   </div>
 
   <!-- CYBERVEILLE ANS -->
-  <div class="cti-site">
+  <div class="cti-site ans-right">
     <div class="cti-site-hdr">
       <h3>
         <span style="background:#005f9e;color:#fff;padding:.15rem .45rem;border-radius:4px;font-size:.65rem">ANS</span>
