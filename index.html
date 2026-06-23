@@ -2002,12 +2002,12 @@ async function loadFeedPanel(panelId, feedKey) {
   const panel = document.getElementById('panel-' + panelId);
   const feeds = RSS_FEEDS[feedKey];
 
-  if (panelId === 'alertes' && feeds.length) {
-    const snapshotItems = sortFeedItemsDesc(MOCK[feedKey]).slice(0, 10);
-    panelItems[panelId] = { items: snapshotItems, isMock: true };
-    renderFeedItems(panel, snapshotItems, true);
-    panelRendered[panelId] = true;
+  const snapshotItems = sortFeedItemsDesc(MOCK[feedKey]).slice(0, 10);
+  panelItems[panelId] = { items: snapshotItems, isMock: true };
+  renderFeedItems(panel, snapshotItems, true);
+  panelRendered[panelId] = true;
 
+  if (panelId === 'alertes' && feeds.length) {
     (async () => {
       const [avisFeed, ...otherFeeds] = feeds;
       const avisResult = await fetchFeed(avisFeed.url, avisFeed.name);
@@ -2027,17 +2027,16 @@ async function loadFeedPanel(panelId, feedKey) {
     return;
   }
 
-  const results = await Promise.all(feeds.map(f => fetchFeed(f.url, f.name)));
-  const items = sortFeedItemsDesc(results.filter(Boolean).flat());
-  if (items.length) items.forEach(collectItem);
-  const finalItems = sortFeedItemsDesc(items.length ? items : MOCK[feedKey]).slice(0, 10);
-  const isMock = !items.length;
-  panelItems[panelId] = { items: finalItems, isMock };
-  // Render si le panneau est actif (onglet), ou si c'est alertes (toujours visible)
-  if (panel.classList.contains('active') || panelId === 'alertes') {
-    renderFeedItems(panel, finalItems, isMock);
-    panelRendered[panelId] = true;
-  }
+  (async () => {
+    const results = await Promise.allSettled(feeds.map(f => fetchFeed(f.url, f.name)));
+    const items = sortFeedItemsDesc(results.filter(r => r.status === 'fulfilled' && r.value).flatMap(r => r.value));
+    if (items.length) {
+      items.forEach(collectItem);
+      const finalItems = sortFeedItemsDesc(items).slice(0, 10);
+      panelItems[panelId] = { items: finalItems, isMock: false };
+      renderFeedItems(panel, finalItems, false);
+    }
+  })().catch(() => {});
 }
 
 function renderFeedItems(panel, items, isMock) {
