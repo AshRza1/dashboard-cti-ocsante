@@ -457,26 +457,29 @@
   <!-- FLUX RSS -->
   <div class="cti-site">
     <div class="tabs">
-      <button class="tab active" onclick="switchTab('alertes',this)">Alertes Institutionnelles</button>
-      <button class="tab" onclick="switchTab('cve',this)">CVE &amp; Vulnérabilités</button>
-      <button class="tab" onclick="switchTab('sante',this)">Cybermenaces Santé</button>
+      <button class="tab active" onclick="switchTab('sante',this)">Cybermenaces Santé</button>
       <button class="tab" onclick="switchTab('menaces',this)">Veille Générale</button>
       <button class="tab" onclick="switchTab('rgpd',this)">RGPD &amp; Conformité</button>
     </div>
-    <div class="feed-panel active" id="panel-alertes"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
-    <div class="feed-panel" id="panel-cve"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
-    <div class="feed-panel" id="panel-sante"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
+    <div class="feed-panel active" id="panel-sante"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
     <div class="feed-panel" id="panel-menaces"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
     <div class="feed-panel" id="panel-rgpd"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
   </div>
 
 </div>
 
-<!-- CVE + ACTORS -->
+<!-- ALERTES + CVE + ACTORS -->
 <div class="sec-title">
   <h2>Vulnérabilités</h2><div class="hr"></div>
 </div>
 <div class="two-col">
+  <div class="card">
+    <div class="card-hdr">
+      <h3>Alertes Institutionnelles</h3>
+      <span style="font-size:.65rem;color:var(--t3)">CERT-FR &amp; flux sécurité</span>
+    </div>
+    <div id="panel-alertes" class="feed-panel" style="max-height:600px;overflow-y:auto;"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
+  </div>
   <div class="card">
     <div class="card-hdr">
       <h3>CVE critiques — Secteur Santé</h3>
@@ -484,6 +487,8 @@
     </div>
     <div id="cve-list"></div>
   </div>
+</div>
+<div class="two-col">
   <div class="card">
     <div class="card-hdr">
       <h3>Groupes menaçants actifs — Santé FR/EU</h3>
@@ -850,7 +855,6 @@
 <div style="display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:#f0f4f9;border:1.5px dashed #b8cce0;border-radius:10px;color:#475569;font-size:.85rem;">
   <div>
     <strong style="color:#1d4ed8;">Données masquées pour la démonstration</strong><br>
-    La surface d'attaque OC Santé (43 actifs — domaines &amp; IPs exposés) est disponible dans la version opérationnelle. Elle n'est pas affichée ici pour des raisons de confidentialité.
   </div>
 </div>
 
@@ -906,20 +910,17 @@ const ACTORS = [
     activity:95, color:'#ef4444', score:'CRITIQUE', sc:'a-red',
     origin:'Russie', ttps:['T1486','T1190','T1133'],
     links:[
-      { label:'CISA StopRansomware Advisory', url:'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-165a', badge:'CISA' },
-      { label:'FBI Flash – LockBit 3.0 IOCs', url:'https://www.ic3.gov/Media/News/2023/230519.pdf', badge:'FBI' },
-      { label:'CERT-FR – Analyse LockBit', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2023-CTI-007/', badge:'CERT-FR' },
-      { label:'ANSSI – Panorama ransomware', url:'https://www.ssi.gouv.fr/actualite/lanssi-et-ses-partenaires-publient-un-rapport-sur-letat-de-la-menace-ransomware/', badge:'ANSSI' },
+      { label:'CISA StopRansomware Portal', url:'https://www.cisa.gov/stopransomware', badge:'CISA' },
+      { label:'CERT-FR Advisories Feed', url:'https://www.cert.ssi.gouv.fr/feed/', badge:'CERT-FR' },
     ]
   },
   {
-    name:'RansomHub', type:'RaaS — Émergent 2024', targets:'Infrastructure santé',
+    name:'RansomHub', type:'RaaS — Émergent 2025', targets:'Infrastructure santé',
     activity:88, color:'#ef4444', score:'CRITIQUE', sc:'a-red',
     origin:'Russie', ttps:['T1190','T1486','T1657'],
     links:[
-      { label:'CISA AA24-242A – RansomHub Advisory', url:'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-242a', badge:'CISA' },
-      { label:'FBI – RansomHub Threat Actor Profile', url:'https://www.ic3.gov/Media/News/2024/240827.pdf', badge:'FBI' },
-      { label:'BleepingComputer – RansomHub Healthcare', url:'https://www.bleepingcomputer.com/news/security/ransomhub-ransomware-gang-targets-healthcare-organizations/', badge:'BC' },
+      { label:'CISA Advisories Feed', url:'https://www.cisa.gov/cybersecurity-advisories/all.xml', badge:'CISA' },
+      { label:'CERT-FR Advisories Feed', url:'https://www.cert.ssi.gouv.fr/feed/', badge:'CERT-FR' },
     ]
   },
   {
@@ -927,9 +928,8 @@ const ACTORS = [
     activity:80, color:'#f97316', score:'ÉLEVÉ', sc:'a-orange',
     origin:'Russie', ttps:['T1486','T1078','T1566'],
     links:[
-      { label:'CISA AA25-071A – Medusa Advisory', url:'https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-071a', badge:'CISA' },
-      { label:'CERT-FR – Analyse Medusa Ransomware', url:'https://www.cert.ssi.gouv.fr/cti/CERTFR-2024-CTI-001/', badge:'CERT-FR' },
-      { label:'Krebs – Inside Medusa Operations', url:'https://krebsonsecurity.com/2024/03/inside-the-medusa-ransomware-group/', badge:'Krebs' },
+      { label:'CISA Advisories Feed', url:'https://www.cisa.gov/cybersecurity-advisories/all.xml', badge:'CISA' },
+      { label:'CERT-FR Advisories Feed', url:'https://www.cert.ssi.gouv.fr/feed/', badge:'CERT-FR' },
     ]
   },
   {
@@ -937,9 +937,8 @@ const ACTORS = [
     activity:75, color:'#f97316', score:'ÉLEVÉ', sc:'a-orange',
     origin:'Russie', ttps:['T1190','T1486','T1070'],
     links:[
-      { label:'CISA – INC Ransom Alert (HC3)', url:'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-131a', badge:'CISA' },
-      { label:'NHS Advisory – INC Ransom Attack', url:'https://digital.nhs.uk/cyber-alerts/2024/cc-4297', badge:'NHS' },
-      { label:'BleepingComputer – INC Ransom NHS', url:'https://www.bleepingcomputer.com/news/security/inc-ransomware-claims-attack-on-uk-nhs-hospital-trust/', badge:'BC' },
+      { label:'CISA Advisories Feed', url:'https://www.cisa.gov/cybersecurity-advisories/all.xml', badge:'CISA' },
+      { label:'CERT-FR Advisories Feed', url:'https://www.cert.ssi.gouv.fr/feed/', badge:'CERT-FR' },
     ]
   },
   {
@@ -947,9 +946,8 @@ const ACTORS = [
     activity:65, color:'#eab308', score:'MODÉRÉ', sc:'a-yellow',
     origin:'Ukraine/Int.', ttps:['T1537','T1048','T1486'],
     links:[
-      { label:'CISA AA23-158A – CL0P MOVEit Advisory', url:'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a', badge:'CISA' },
-      { label:'ANSSI – Clop / TA505 Profile', url:'https://www.ssi.gouv.fr/uploads/2021/05/anssi_rapport_ta505_2021_v1.0.pdf', badge:'ANSSI' },
-      { label:'CERT-FR – CVE-2024-50623 Cleo', url:'https://www.cert.ssi.gouv.fr/alerte/CERTFR-2024-ALE-020/', badge:'CERT-FR' },
+      { label:'CISA Advisories Feed', url:'https://www.cisa.gov/cybersecurity-advisories/all.xml', badge:'CISA' },
+      { label:'CERT-FR Advisories Feed', url:'https://www.cert.ssi.gouv.fr/feed/', badge:'CERT-FR' },
     ]
   },
   {
@@ -957,8 +955,7 @@ const ACTORS = [
     activity:50, color:'#a78bfa', score:'STRATÉGIQUE', sc:'a-purple',
     origin:'Corée du Nord', ttps:['T1059','T1071','T1566'],
     links:[
-      { label:'CISA/FBI/NSA Advisory – Lazarus', url:'https://www.cisa.gov/news-events/cybersecurity-advisories/aa22-108a', badge:'CISA' },
-      { label:'ANSSI – APT Lazarus Group', url:'https://www.ssi.gouv.fr/actualite/anssi-et-ses-partenaires-alertent-sur-une-campagne-dattaques-attribuee-au-groupe-lazarus/', badge:'ANSSI' },
+      { label:'CISA Advisories Feed', url:'https://www.cisa.gov/cybersecurity-advisories/all.xml', badge:'CISA' },
       { label:'MITRE ATT&CK – Lazarus Group', url:'https://attack.mitre.org/groups/G0032/', badge:'MITRE' },
     ]
   },
@@ -1099,6 +1096,96 @@ function showToast(msg, duration=3000) {
   _toastTimer = setTimeout(() => el.classList.remove('show'), duration);
 }
 
+const NVD_REFRESH_MS = 15 * 60 * 1000;
+const NVD_CACHE_MS = 5 * 60 * 1000;
+
+function getNvdCache(cveId) {
+  try {
+    const raw = sessionStorage.getItem('nvd:' + cveId);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Date.now() - parsed.ts > NVD_CACHE_MS) return null;
+    return parsed.data;
+  } catch {
+    return null;
+  }
+}
+
+function setNvdCache(cveId, data) {
+  try {
+    sessionStorage.setItem('nvd:' + cveId, JSON.stringify({ ts: Date.now(), data }));
+  } catch {}
+}
+
+function getNvdBaseScore(cve) {
+  const metrics = cve?.metrics || {};
+  const pick = (arr, key) => Array.isArray(arr) && arr[0] && typeof arr[0][key]?.baseScore === 'number'
+    ? arr[0][key].baseScore
+    : null;
+  return pick(metrics.cvssMetricV40, 'cvssData')
+    ?? pick(metrics.cvssMetricV31, 'cvssData')
+    ?? pick(metrics.cvssMetricV30, 'cvssData')
+    ?? pick(metrics.cvssMetricV2, 'cvssData');
+}
+
+function getSeverityFromScore(score) {
+  if (typeof score !== 'number') return 'high';
+  if (score >= 9) return 'critical';
+  if (score >= 7) return 'high';
+  return 'medium';
+}
+
+async function fetchNvdForCve(cveId) {
+  const cached = getNvdCache(cveId);
+  if (cached) return cached;
+
+  const apiUrl = `https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=${encodeURIComponent(cveId)}`;
+  const candidateUrls = [
+    apiUrl,
+    'https://corsproxy.io/?url=' + encodeURIComponent(apiUrl),
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(apiUrl),
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(apiUrl),
+    'https://thingproxy.freeboard.io/fetch/' + apiUrl,
+  ];
+
+  for (const url of candidateUrls) {
+    try {
+      const res = await fetchWithTimeout(url, 10000);
+      if (!res.ok) continue;
+      const data = await res.json();
+      const vuln = data?.vulnerabilities?.[0]?.cve;
+      if (!vuln) continue;
+      const score = getNvdBaseScore(vuln);
+      const enriched = {
+        score,
+        exploited: Boolean(vuln.cisaExploitAdd),
+        sev: getSeverityFromScore(score),
+      };
+      setNvdCache(cveId, enriched);
+      return enriched;
+    } catch {}
+  }
+  return null;
+}
+
+async function updateNvdLive() {
+  const results = await Promise.all(CVES.map(c => fetchNvdForCve(c.id)));
+  let updated = 0;
+  results.forEach((live, idx) => {
+    if (!live) return;
+    if (typeof live.score === 'number') CVES[idx].score = Number(live.score.toFixed(1));
+    if (typeof live.exploited === 'boolean') CVES[idx].exploited = live.exploited;
+    if (live.sev) CVES[idx].sev = live.sev;
+    updated += 1;
+  });
+
+  if (updated > 0) {
+    renderCVEs();
+    renderScoring();
+    showToast(`NVD en direct mis a jour (${updated}/${CVES.length})`, 2500);
+  }
+}
+
 // ═══════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════
@@ -1115,6 +1202,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initCharts(analyzeThreatActivity([]));
   renderOSINT();
   loadFeedsAndAnalyze();
+  updateNvdLive().catch(err => console.warn('NVD live update failed:', err));
+  window.setInterval(() => {
+    updateNvdLive().catch(err => console.warn('NVD periodic update failed:', err));
+  }, NVD_REFRESH_MS);
   window.setInterval(() => {
     refreshAllFeeds().catch(err => console.warn('Auto-refresh feeds failed:', err));
   }, FEED_CACHE_MS);
@@ -1224,6 +1315,15 @@ function renderCVEs() {
   `).join('');
 }
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ═══════════════════════════════════════════════════════════
 //  ACTORS – expandable avec liens réels
 // ═══════════════════════════════════════════════════════════
@@ -1241,11 +1341,15 @@ function renderActors() {
       <div style="font-size:.6rem;color:var(--t3);margin-bottom:.3rem">TTPs : ${a.ttps.join(' · ')}</div>
       <div class="actor-bar"><div class="actor-fill" style="width:${a.activity}%;background:${a.color}"></div></div>
       <div class="actor-links" id="actor-links-${i}">
-        ${a.links.map(l=>`
-          <a class="actor-link-item" href="${l.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-            <span>${l.badge}</span>${l.label}
-          </a>
-        `).join('')}
+        ${a.links.map(l=>{
+          const safeUrl = isValidArticleUrl(l.url) ? l.url : '';
+          const badge = escapeHtml(l.badge || 'SRC');
+          const label = escapeHtml(l.label || 'Source indisponible');
+          if (!safeUrl) {
+            return `<span class="actor-link-item" role="link" aria-disabled="true" style="opacity:.65;cursor:not-allowed"><span>${badge}</span>${label} (indisponible)</span>`;
+          }
+          return `<a class="actor-link-item" href="${safeUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><span>${badge}</span>${label}</a>`;
+        }).join('')}
       </div>
     </div>
   `).join('');
@@ -1282,6 +1386,8 @@ function renderScoring() {
 // ═══════════════════════════════════════════════════════════
 //  PATCH TABLE
 // ═══════════════════════════════════════════════════════════
+const MASK_PATCH_TABLE_DATA = true;
+
 function renderPatchTable() {
   const today = new Date();
   document.getElementById('patch-tbody').innerHTML = PATCH_DATA.map(p => {
@@ -1293,15 +1399,18 @@ function renderPatchTable() {
       : p.urgency==='high'
         ? '<span class="urgency urg-high">HAUTE</span>'
         : '<span class="urgency urg-med">MODÉRÉE</span>';
+    const maskedUrgEl = '<span class="urgency urg-med">MASQUÉ</span>';
     const pct = Math.max(5, 100 - (p.deadline/30)*100);
     const barCol = p.urgency==='imm'?'var(--red)':p.urgency==='high'?'var(--orange)':'var(--yellow)';
+    const maskedBarCol = 'var(--line)';
+    const maskedPct = 60;
     return `<tr>
-      <td><a href="https://nvd.nist.gov/vuln/detail/${p.cve}" target="_blank" rel="noopener" style="color:var(--blue);font-family:monospace;font-size:.7rem;font-weight:700;text-decoration:none">${p.cve}</a></td>
-      <td style="color:var(--t1)">${p.prod}</td>
-      <td>${urgEl}</td>
-      <td style="color:var(--t1)">${dueStr}</td>
-      <td><div class="deadline-bar"><div class="db-fill" style="width:${pct}px;background:${barCol}"></div><span style="color:${barCol};font-weight:700">${p.deadline} j</span></div></td>
-      <td style="color:var(--t2)">${p.owner}</td>
+      <td style="color:var(--blue);font-family:monospace;font-size:.7rem;font-weight:700">${MASK_PATCH_TABLE_DATA ? '••••••••••••' : `<a href="https://nvd.nist.gov/vuln/detail/${p.cve}" target="_blank" rel="noopener" style="color:var(--blue);font-family:monospace;font-size:.7rem;font-weight:700;text-decoration:none">${p.cve}</a>`}</td>
+      <td style="color:var(--t1)">${MASK_PATCH_TABLE_DATA ? '••••••••••••' : p.prod}</td>
+      <td>${MASK_PATCH_TABLE_DATA ? maskedUrgEl : urgEl}</td>
+      <td style="color:var(--t1)">${MASK_PATCH_TABLE_DATA ? '••/••/••••' : dueStr}</td>
+      <td><div class="deadline-bar"><div class="db-fill" style="width:${MASK_PATCH_TABLE_DATA ? maskedPct : pct}px;background:${MASK_PATCH_TABLE_DATA ? maskedBarCol : barCol}"></div><span style="color:${MASK_PATCH_TABLE_DATA ? 'var(--t3)' : barCol};font-weight:700">${MASK_PATCH_TABLE_DATA ? '•• j' : `${p.deadline} j`}</span></div></td>
+      <td style="color:var(--t2)">${MASK_PATCH_TABLE_DATA ? '•••• ••••••••' : p.owner}</td>
     </tr>`;
   }).join('');
 }
@@ -1898,8 +2007,8 @@ async function loadFeedPanel(panelId, feedKey) {
   const finalItems = sortFeedItemsDesc(items.length ? items : MOCK[feedKey]).slice(0, 10);
   const isMock = !items.length;
   panelItems[panelId] = { items: finalItems, isMock };
-  // Render uniquement si le panneau est actuellement actif
-  if (panel.classList.contains('active')) {
+  // Render si le panneau est actif (onglet), ou si c'est alertes (toujours visible)
+  if (panel.classList.contains('active') || panelId === 'alertes') {
     renderFeedItems(panel, finalItems, isMock);
     panelRendered[panelId] = true;
   }
@@ -1909,6 +2018,38 @@ function renderFeedItems(panel, items, isMock) {
   const badge = isMock
     ? `<div style="font-size:.65rem;color:var(--t3);padding:.5rem 1.1rem;background:rgba(0,0,0,.08);border-bottom:1px solid var(--border)">Données représentatives — flux RSS indisponibles (quota proxy ou timeout). Réessayez dans quelques minutes.</div>`
     : '';
+
+  if (panel.id === 'panel-alertes') {
+    const avisItems = items.filter(it => /CERT-FR Avis/i.test(it.source));
+    const alerteItems = items.filter(it => /CERT-FR Alerte/i.test(it.source));
+    const otherItems = items.filter(it => !/CERT-FR Avis|CERT-FR Alerte/i.test(it.source));
+    const renderList = list => list.map(it => `
+      <div class="feed-item">
+        <div class="fi-source">${escHtml(it.source)}</div>
+        <div class="fi-title"><a href="${escHtml(it.url)}" target="_blank" rel="noopener noreferrer">${escHtml(it.title)}</a></div>
+        <div class="fi-meta">${escHtml(it.date)}</div>
+      </div>
+    `).join('');
+
+    const avisSection = avisItems.length ? `
+      <div style="padding:.6rem 1.1rem;border-bottom:1px solid var(--border);background:#f0f7ff;font-size:.68rem;font-weight:700;letter-spacing:.04em;color:#0369a1;text-transform:uppercase;">🛡️ Avis de sécurité</div>
+      ${renderList(avisItems)}
+    ` : '';
+
+    const alerteSection = alerteItems.length ? `
+      <div style="padding:.6rem 1.1rem;border-bottom:1px solid var(--border);background:#fef2f2;font-size:.68rem;font-weight:700;letter-spacing:.04em;color:#dc2626;text-transform:uppercase;">⚠️ Alertes</div>
+      ${renderList(alerteItems)}
+    ` : '';
+
+    const otherSection = otherItems.length ? `
+      <div style="padding:.6rem 1.1rem;border-bottom:1px solid var(--border);background:#fafafa;font-size:.68rem;font-weight:700;letter-spacing:.04em;color:var(--t3);text-transform:uppercase;">📢 Autres flux institutionnels</div>
+      ${renderList(otherItems)}
+    ` : '';
+
+    panel.innerHTML = badge + avisSection + alerteSection + otherSection;
+    return;
+  }
+
   panel.innerHTML = badge + items.map(it=>`
     <div class="feed-item">
       <div class="fi-source">${escHtml(it.source)}</div>
@@ -1942,7 +2083,7 @@ const CERTFR_MOCK = [
   
   // ═══ IOC (du plus récent au plus ancien) ═══
   { tag:'IOC', tagCls:'cti-tag-blue', title:'Feed MISP public TLP:CLEAR – indicateurs de compromission (22 juin 2026) (CERTFR-2026-IOC-045)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/ioc/CERTFR-2026-IOC-045/' },
-  { tag:'IOC', tagCls:'cti-tag-blue', title:'Codes malveillants utilisés à des fins destructrices – marqueurs techniques (11 juillet 2024) (CERTFR-2024-IOC-002)', date:'11/07/2024', url:'https://www.cert.ssi.gouv.fr/ioc/CERTFR-2024-IOC-002/' },
+  { tag:'IOC', tagCls:'cti-tag-blue', title:'Indicateurs de compromission MISP public TLP:CLEAR (22 juin 2026) (CERTFR-2026-IOC-046)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/ioc/CERTFR-2026-IOC-046/' },
   
   // ═══ DUR (du plus récent au plus ancien) ═══
   { tag:'DUR', tagCls:'cti-tag-blue', title:'Recommandations sécurité pour le secteur santé (22 juin 2026) – Renforcement des défenses (CERTFR-2026-DUR-005)', date:'22/06/2026', url:'https://www.cert.ssi.gouv.fr/dur/CERTFR-2026-DUR-005/' },
@@ -1955,23 +2096,77 @@ const CERTFR_MOCK = [
 ];
 
 const CYBERVEILLE_MOCK = [
-  { date:'22/06/2026', title:'HAProxy - CVE-2026-55203', cvss:'7.5', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'22/06/2026', title:'Apache - CVE-2026-49268', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'22/06/2026', title:'F5 - CVE-2026-42530', cvss:'8.1', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'21/06/2026', title:'QNAP - CVE-2026-26241', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'21/06/2026', title:'Oracle - CVE-2026-46860', cvss:'9.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'20/06/2026', title:'Splunk AI - CVE-2026-20266', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'20/06/2026', title:'Cisco Systems - CVE-2026-20181', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
-  { date:'20/06/2026', title:'Dell - CVE-2024-24909', cvss:'8.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites' },
+  { date:'22/06/2026', title:'JetBrains - CVE-2026-50242', cvss:'10', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/jetbrains-cve-2026-50242-2026-06-22' },
+  { date:'22/06/2026', title:'Joomla! - CVE-2026-48908', cvss:'9.8', exploited:'Oui', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/joomla-cve-2026-48908-2026-06-22' },
+  { date:'22/06/2026', title:'PostgreSQL - CVE-2026-12048', cvss:'9.3', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/postgresql-cve-2026-12048-2026-06-22' },
+  { date:'22/06/2026', title:'Eclipse - CVE-2026-11576', cvss:'7.5', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes/eclipse-cve-2026-11576-2026-06-22' },
+  { date:'22/06/2026', title:'PaperCut - CVE-2026-6645', cvss:'7.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/papercut-cve-2026-6645-2026-06-22' },
+  { date:'19/06/2026', title:'HAProxy - CVE-2026-55203', cvss:'7.5', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/haproxy-cve-2026-55203-2026-06-19' },
+  { date:'19/06/2026', title:'Apache - CVE-2026-49268', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/apache-cve-2026-49268-2026-06-19' },
+  { date:'19/06/2026', title:'F5 - CVE-2026-42530', cvss:'8.1', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes/f5-cve-2026-42530-2026-06-19' },
+  { date:'19/06/2026', title:'QNAP - CVE-2026-26241', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/qnap-cve-2026-26241-2026-06-19' },
+  { date:'18/06/2026', title:'Oracle - CVE-2026-46860', cvss:'9.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/oracle-cve-2026-46860-2026-06-18' },
+  { date:'18/06/2026', title:'Splunk AI - CVE-2026-20266', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Oui', url:'https://cyberveille.esante.gouv.fr/alertes/splunk-ai-cve-2026-20266-2026-06-18' },
+  { date:'18/06/2026', title:'Cisco Systems - CVE-2026-20181', cvss:'9.1', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/cisco-systems-cve-2026-20181-2026-06-18' },
+  { date:'18/06/2026', title:'Dell - CVE-2024-24909', cvss:'8.8', exploited:'Non', fixed:'Oui', workaround:'Non', url:'https://cyberveille.esante.gouv.fr/alertes/dell-cve-2024-24909-2026-06-18' },
 ];
 
 const ANS_VULN_PAGE_URL = 'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites';
 const ANS_VULN_PAGE_PROXIES = [
+  {
+    name: 'jina',
+    build: url => 'https://r.jina.ai/http://' + url,
+    parse: text => parseCyberveilleVulnRowsFromJina(text),
+  },
   url => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
   url => 'https://corsproxy.io/?url=' + encodeURIComponent(url),
   url => 'https://api.allorigins.win/get?url=' + encodeURIComponent(url),
   url => 'https://thingproxy.freeboard.io/fetch/' + url,
 ];
+
+function parseDMYDate(dateStr) {
+  const [day, month, year] = String(dateStr || '').split('/').map(Number);
+  if (!day || !month || !year) return new Date(0);
+  return new Date(year, month - 1, day);
+}
+
+function slugifyANS(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function buildANSCveDetailUrl(title, date) {
+  const rawTitle = String(title || '').trim();
+  const cveMatch = rawTitle.match(/CVE-\d{4}-\d+/i);
+  if (!cveMatch) return ANS_VULN_PAGE_URL;
+
+  const cveId = cveMatch[0].toUpperCase();
+  const vendor = rawTitle.split(/\s*-\s*/)[0] || cveId;
+  const slugBase = slugifyANS(`${vendor} ${cveId}`) || slugifyANS(cveId);
+
+  const [day, month, year] = String(date || '').split('/');
+  if (!day || !month || !year) {
+    return `https://cyberveille.esante.gouv.fr/alertes/${slugBase}`;
+  }
+
+  const isoDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  return `https://cyberveille.esante.gouv.fr/alertes/${slugBase}-${isoDate}`;
+}
+
+function normalizeANSVulnRow(row) {
+  const currentUrl = String(row?.url || '').trim();
+  const needsDirectLink = !currentUrl || /\/alertes-et-vulnerabilites\/?$/i.test(currentUrl);
+  const url = needsDirectLink ? buildANSCveDetailUrl(row?.title, row?.date) : currentUrl;
+  return { ...row, url };
+}
+
+function sortANSRowsDesc(rows) {
+  return [...rows].sort((a, b) => parseDMYDate(b.date) - parseDMYDate(a.date));
+}
 
 function normalizeOuiNon(txt) {
   const clean = String(txt || '').trim().toLowerCase();
@@ -2015,27 +2210,62 @@ function parseCyberveilleVulnRows(html) {
   return out;
 }
 
+function parseCyberveilleVulnRowsFromJina(text) {
+  const lines = String(text || '').split(/\r?\n/);
+  const out = [];
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed.startsWith('|')) continue;
+
+    const cols = trimmed.split('|').slice(1, -1).map(part => part.trim());
+    if (cols.length < 7) continue;
+
+    const date = cols[0];
+    const titleCol = cols[2] || '';
+    const cvssCol = cols[3] || '';
+    const exploited = normalizeOuiNon(cols[4] || '');
+    const fixed = normalizeOuiNon(cols[5] || '');
+    const workaround = normalizeOuiNon(cols[6] || '');
+
+    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(date)) continue;
+
+    const titleMatch = titleCol.match(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/);
+    const title = titleMatch ? titleMatch[1].trim() : titleCol.replace(/^\[|\]$/g, '').trim();
+    const url = titleMatch ? titleMatch[2] : ANS_VULN_PAGE_URL;
+    if (!/CVE-/i.test(title)) continue;
+
+    const cvssMatch = cvssCol.match(/\d+(?:\.\d+)?/);
+    const cvss = cvssMatch ? cvssMatch[0] : '';
+
+    out.push({ date, title, cvss, exploited, fixed, workaround, url });
+  }
+
+  return out;
+}
+
 async function fetchANSVulnerabilitiesLive() {
-  for (const buildProxy of ANS_VULN_PAGE_PROXIES) {
+  for (const proxy of ANS_VULN_PAGE_PROXIES) {
     try {
+      const buildProxy = typeof proxy === 'function' ? proxy : proxy.build;
       const res = await fetchWithTimeout(buildProxy(ANS_VULN_PAGE_URL), 10000);
       if (!res.ok) throw new Error('HTTP ' + res.status);
 
-      let html;
-      if (buildProxy.toString().includes('allorigins')) {
+      let rows;
+      if (typeof proxy === 'object' && proxy.name === 'jina') {
+        const text = await res.text();
+        rows = proxy.parse(text);
+      } else if (buildProxy.toString().includes('allorigins')) {
         const json = await res.json();
-        html = json.contents || '';
+        const html = json.contents || '';
+        if (!html) throw new Error('HTML vide');
+        rows = parseCyberveilleVulnRows(html);
       } else {
-        html = await res.text();
+        const html = await res.text();
+        if (!html) throw new Error('HTML vide');
+        rows = parseCyberveilleVulnRows(html);
       }
-      if (!html) throw new Error('HTML vide');
-
-      const rows = parseCyberveilleVulnRows(html);
-      if (rows.length) {
-        return rows
-          .sort((a,b) => new Date(b.date.split('/').reverse().join('-')) - new Date(a.date.split('/').reverse().join('-')))
-          .slice(0, 20);
-      }
+      if (rows.length) return sortANSRowsDesc(rows).map(normalizeANSVulnRow);
       throw new Error('Aucune vulnérabilité CVE trouvée');
     } catch (e) {
       console.warn('[ANS] échec proxy table:', e.message);
@@ -2051,7 +2281,9 @@ function renderANSVulnerabilities(containerId, rows, isMock) {
     ? `<div style="font-size:.65rem;color:var(--t3);padding:.5rem 1.1rem;background:rgba(0,0,0,.08);border-bottom:1px solid var(--border)">Données représentatives — impossible de joindre la table ANS en direct.</div>`
     : '';
 
-  container.innerHTML = banner + rows.map(it => {
+  const preparedRows = sortANSRowsDesc(rows).map(normalizeANSVulnRow);
+
+  container.innerHTML = banner + preparedRows.map(it => {
     const sev = parseScoreLabel(it.cvss);
     const exploitColor = it.exploited === 'Oui' ? 'var(--red)' : 'var(--t2)';
     return `
@@ -2063,6 +2295,22 @@ function renderANSVulnerabilities(containerId, rows, isMock) {
     `;
   }).join('');
 }
+
+function renderANSUnavailable(containerId, reason) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = `
+    <div style="font-size:.65rem;color:var(--t3);padding:.5rem 1.1rem;background:rgba(0,0,0,.08);border-bottom:1px solid var(--border)">
+      Données ANS indisponibles en direct. Affichage strict activé: seules les CVE réellement présentes sur le site ANS sont affichées.
+    </div>
+    <div class="cti-item">
+      <span class="cti-tag cti-tag-blue">INFO</span>
+      <a class="cti-title" href="${escHtml(ANS_VULN_PAGE_URL)}" target="_blank" rel="noopener noreferrer">Ouvrir la page ANS Alertes et vulnérabilités</a>
+      <div class="cti-meta">${escHtml(reason || 'Aucune CVE récupérable pour le moment via les proxys.')}</div>
+    </div>
+  `;
+}
+
+renderANSUnavailable('cyberveille-feed', 'Chargement des CVE ANS en cours...');
 
 function renderCTIItems(containerId, items) {
   document.getElementById(containerId).innerHTML = items.map(it => `
@@ -2100,7 +2348,8 @@ async function loadCTIPanels() {
   // pour afficher uniquement la suite des vulnérabilités (CVE) comme sur le site.
   const ansRows = await fetchANSVulnerabilitiesLive();
   if (ansRows && ansRows.length) {
-    ansRows.forEach(r => {
+    const preparedAnsRows = sortANSRowsDesc(ansRows).map(normalizeANSVulnRow);
+    preparedAnsRows.forEach(r => {
       collectItem({
         source:'CYBERVEILLE ANS',
         title:`${r.title} CVSS ${r.cvss} Exploitée:${r.exploited} Correctif:${r.fixed} Contournement:${r.workaround}`,
@@ -2108,19 +2357,18 @@ async function loadCTIPanels() {
         url:r.url,
       });
     });
-    renderANSVulnerabilities('cyberveille-feed', ansRows, false);
+    renderANSVulnerabilities('cyberveille-feed', preparedAnsRows, false);
   } else {
-    CYBERVEILLE_MOCK.forEach(r => {
-      collectItem({
-        source:'CYBERVEILLE ANS',
-        title:`${r.title} CVSS ${r.cvss} Exploitée:${r.exploited} Correctif:${r.fixed} Contournement:${r.workaround}`,
-        date:r.date,
-        url:r.url,
-      });
-    });
-    renderANSVulnerabilities('cyberveille-feed', CYBERVEILLE_MOCK, true);
+    renderANSUnavailable('cyberveille-feed', 'Impossible de joindre la table ANS via les proxys configurés.');
   }
 }
+
+setTimeout(() => {
+  const panel = document.getElementById('cyberveille-feed');
+  if (panel && /chargement/i.test(panel.textContent || '') && typeof loadCTIPanels === 'function') {
+    loadCTIPanels().catch(() => {});
+  }
+}, 1200);
 
 // ═══════════════════════════════════════════════════════════
 //  ANALYSE DYNAMIQUE — calcule tendances/types/vecteurs/OSINT/
@@ -2273,7 +2521,6 @@ function updateKPIsFromAnalysis(analysis) {
 async function loadAllFeeds() {
   await Promise.all([
     loadFeedPanel('alertes','alertes'),
-    loadFeedPanel('cve','cve'),
     loadFeedPanel('sante','sante'),
     loadFeedPanel('menaces','menaces'),
     loadFeedPanel('rgpd','rgpd'),
