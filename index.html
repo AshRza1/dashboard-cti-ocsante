@@ -2001,6 +2001,32 @@ function hydrateFeedItems(rawItems, sourceName) {
 async function loadFeedPanel(panelId, feedKey) {
   const panel = document.getElementById('panel-' + panelId);
   const feeds = RSS_FEEDS[feedKey];
+
+  if (panelId === 'alertes' && feeds.length) {
+    const snapshotItems = sortFeedItemsDesc(MOCK[feedKey]).slice(0, 10);
+    panelItems[panelId] = { items: snapshotItems, isMock: true };
+    renderFeedItems(panel, snapshotItems, true);
+    panelRendered[panelId] = true;
+
+    (async () => {
+      const [avisFeed, ...otherFeeds] = feeds;
+      const avisResult = await fetchFeed(avisFeed.url, avisFeed.name);
+      const otherResults = await Promise.allSettled(otherFeeds.map(f => fetchFeed(f.url, f.name)));
+      const mergedItems = [
+        ...(avisResult || []),
+        ...otherResults.flatMap(result => result.status === 'fulfilled' && result.value ? result.value : []),
+      ];
+
+      if (mergedItems.length) {
+        const finalItems = sortFeedItemsDesc(mergedItems).slice(0, 10);
+        panelItems[panelId] = { items: finalItems, isMock: false };
+        finalItems.forEach(collectItem);
+        renderFeedItems(panel, finalItems, false);
+      }
+    })().catch(() => {});
+    return;
+  }
+
   const results = await Promise.all(feeds.map(f => fetchFeed(f.url, f.name)));
   const items = sortFeedItemsDesc(results.filter(Boolean).flat());
   if (items.length) items.forEach(collectItem);
