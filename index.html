@@ -2112,6 +2112,7 @@ const CYBERVEILLE_MOCK = [
 ];
 
 const ANS_VULN_PAGE_URL = 'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites';
+const ANS_VULN_RSS_URL = 'https://cyberveille.esante.gouv.fr/alertes-et-vulnerabilites/rss.xml';
 const ANS_VULN_PAGE_PROXIES = [
   {
     name: 'jina',
@@ -2183,6 +2184,36 @@ function parseScoreLabel(cvssRaw) {
   return { tag:'MOYEN', tagCls:'cti-tag-blue', scoreTxt:score.toFixed(1) };
 }
 
+function formatDateToDMY(dateValue) {
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return '';
+  return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+}
+
+function parseCyberveilleRssRows(xmlText) {
+  const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+  if (doc.querySelector('parsererror')) return [];
+
+  return Array.from(doc.querySelectorAll('item'))
+    .map(item => {
+      const title = item.querySelector('title')?.textContent?.trim() || '';
+      if (!/CVE-/i.test(title)) return null;
+
+      const link = item.querySelector('link')?.textContent?.trim() || ANS_VULN_PAGE_URL;
+      const date = formatDateToDMY(item.querySelector('pubDate')?.textContent?.trim() || '');
+      return {
+        date,
+        title,
+        cvss: '',
+        exploited: '—',
+        fixed: '—',
+        workaround: '—',
+        url: link ? new URL(link, ANS_VULN_PAGE_URL).toString() : ANS_VULN_PAGE_URL,
+      };
+    })
+    .filter(Boolean);
+}
+
 function parseCyberveilleVulnRows(html) {
   const doc = new DOMParser().parseFromString(html, 'text/html');
   const rows = Array.from(doc.querySelectorAll('tr'));
@@ -2245,25 +2276,32 @@ function parseCyberveilleVulnRowsFromJina(text) {
 }
 
 async function fetchANSVulnerabilitiesLive() {
+  const rssRows = await fetchANSRowsFromSource(ANS_VULN_RSS_URL, parseCyberveilleRssRows);
+  if (rssRows && rssRows.length) return rssRows;
+
+  return fetchANSRowsFromSource(ANS_VULN_PAGE_URL, parseCyberveilleVulnRows);
+}
+
+async function fetchANSRowsFromSource(sourceUrl, parser) {
   for (const proxy of ANS_VULN_PAGE_PROXIES) {
     try {
       const buildProxy = typeof proxy === 'function' ? proxy : proxy.build;
-      const res = await fetchWithTimeout(buildProxy(ANS_VULN_PAGE_URL), 10000);
+      const res = await fetchWithTimeout(buildProxy(sourceUrl), 10000);
       if (!res.ok) throw new Error('HTTP ' + res.status);
 
       let rows;
       if (typeof proxy === 'object' && proxy.name === 'jina') {
         const text = await res.text();
-        rows = proxy.parse(text);
+        rows = parser(text);
       } else if (buildProxy.toString().includes('allorigins')) {
         const json = await res.json();
         const html = json.contents || '';
         if (!html) throw new Error('HTML vide');
-        rows = parseCyberveilleVulnRows(html);
+        rows = parser(html);
       } else {
-        const html = await res.text();
-        if (!html) throw new Error('HTML vide');
-        rows = parseCyberveilleVulnRows(html);
+        const text = await res.text();
+        if (!text) throw new Error('Contenu vide');
+        rows = parser(text);
       }
       if (rows.length) return sortANSRowsDesc(rows).map(normalizeANSVulnRow);
       throw new Error('Aucune vulnérabilité CVE trouvée');
@@ -2334,32 +2372,38 @@ async function loadCTIPanels() {
     { url:'https://www.cert.ssi.gouv.fr/dur/feed/',       source:'DUR',       tagCls:'cti-tag-blue' },
     { url:'https://www.cert.ssi.gouv.fr/actualite/feed/', source:'ACTUALITÉ', tagCls:'cti-tag-blue' },
   ];
-  const certResults = await Promise.all(certFeedDefs.map(f => fetchFeed(f.url, f.source)));
+  const preparedMockAnsRows = sortANSRowsDesc(CYBERVEILLE_MOCK).map(normalizeANSVulnRow);
+  renderANSVulnerabilities('cyberveille-feed', preparedMockAnsRows, true);
+
+  fetchANSVulnerabilitiesLive().then(ansRows => {
+    if (ansRows && ansRows.length) {
+      const preparedAnsRows = sortANSRowsDesc(ansRows).map(normalizeANSVulnRow);
+      preparedAnsRows.forEach(r => {
+        collectItem({
+          source:'CYBERVEILLE ANS',
+          title:`${r.title} CVSS ${r.cvss} Exploitée:${r.exploited} Correctif:${r.fixed} Contournement:${r.workaround}`,
+          date:r.date,
+          url:r.url,
+        });
+      });
+      renderANSVulnerabilities('cyberveille-feed', preparedAnsRows, false);
+    }
+  }).catch(() => {});
+
+  const certResultsPromise = Promise.allSettled(certFeedDefs.map(f => fetchFeed(f.url, f.source)));
+
+  const certResults = await certResultsPromise;
   const certItems = sortFeedItemsDesc(
-    certFeedDefs.flatMap((f, i) => (certResults[i] || []).map(it => ({ ...it, tagCls: f.tagCls })))
+    certFeedDefs.flatMap((f, i) => {
+      const result = certResults[i];
+      const items = result && result.status === 'fulfilled' ? (result.value || []) : [];
+      return items.map(it => ({ ...it, tagCls: f.tagCls }));
+    })
   ).slice(0, 20);
   if (certItems.length) {
     certItems.forEach(collectItem);
   } else {
     CERTFR_MOCK.forEach(collectItem);
-  }
-
-  // CYBERVEILLE ANS — lecture directe de la table « Alertes et vulnérabilités »
-  // pour afficher uniquement la suite des vulnérabilités (CVE) comme sur le site.
-  const ansRows = await fetchANSVulnerabilitiesLive();
-  if (ansRows && ansRows.length) {
-    const preparedAnsRows = sortANSRowsDesc(ansRows).map(normalizeANSVulnRow);
-    preparedAnsRows.forEach(r => {
-      collectItem({
-        source:'CYBERVEILLE ANS',
-        title:`${r.title} CVSS ${r.cvss} Exploitée:${r.exploited} Correctif:${r.fixed} Contournement:${r.workaround}`,
-        date:r.date,
-        url:r.url,
-      });
-    });
-    renderANSVulnerabilities('cyberveille-feed', preparedAnsRows, false);
-  } else {
-    renderANSUnavailable('cyberveille-feed', 'Impossible de joindre la table ANS via les proxys configurés.');
   }
 }
 
