@@ -453,20 +453,82 @@
 </div>
 <div class="cti-panel">
 
-  <!-- BLOC DE VEILLE (FLUX PAR SECTION) -->
+  <!-- BLOC DE VEILLE (TABLEAU PAR SECTION) -->
   <div class="cti-site">
     <div class="cti-site-hdr">
-      <h3>Bloc de veille — CERT / Blogs cyber / RGPD</h3>
-      <span style="font-size:.65rem;color:var(--t3)">Flux relatifs aux sections</span>
+      <h3>Bloc de veille — Sections CERT/CTI/RGPD</h3>
+      <span style="font-size:.65rem;color:var(--t3)">Structure conforme au tableau demandé</span>
     </div>
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('sante',this)">Cybermenaces Santé</button>
-      <button class="tab" onclick="switchTab('menaces',this)">Veille Générale</button>
-      <button class="tab" onclick="switchTab('rgpd',this)">RGPD &amp; Conformité</button>
+    <div class="veille-wrap">
+      <table class="veille-table" aria-label="Tableau des sections de veille">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Avis de sécurité - CERT</th>
+            <th>Bulletins d'actualité</th>
+            <th>Alertes de sécurité Menaces et incidents</th>
+            <th>Veille générale</th>
+            <th>RGPD et conformité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="veille-label">Site</td>
+            <td>
+              <div class="veille-links">
+                <a href="https://www.cert.ssi.gouv.fr/avis/" target="_blank" rel="noopener">https://www.cert.ssi.gouv.fr/avis/</a>
+              </div>
+            </td>
+            <td>
+              <div class="veille-links">
+                <a href="https://www.cert.ssi.gouv.fr/actualite/" target="_blank" rel="noopener">https://www.cert.ssi.gouv.fr/actualite/</a>
+              </div>
+            </td>
+            <td>
+              <div class="veille-links">
+                <a href="https://www.cert.ssi.gouv.fr/alerte/" target="_blank" rel="noopener">https://www.cert.ssi.gouv.fr/alerte/</a>
+              </div>
+            </td>
+            <td>
+              <span class="veille-col-title">Articles de blogs cyber en tout genre</span>
+            </td>
+            <td>
+              <span class="veille-col-title">CNIL</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="veille-label">Feed</td>
+            <td>
+              <div class="veille-links">
+                <a href="https://www.cert.ssi.gouv.fr/avis/feed/" target="_blank" rel="noopener">https://www.cert.ssi.gouv.fr/avis/feed/</a>
+              </div>
+            </td>
+            <td>
+              <div class="veille-links">
+                <a href="https://www.cert.ssi.gouv.fr/actualite/feed/" target="_blank" rel="noopener">https://www.cert.ssi.gouv.fr/actualite/feed/</a>
+              </div>
+            </td>
+            <td>
+              <div class="veille-links">
+                <a href="https://www.cert.ssi.gouv.fr/alerte/feed/" target="_blank" rel="noopener">https://www.cert.ssi.gouv.fr/alerte/feed/</a>
+                <a href="https://www.cert.ssi.gouv.fr/cti/" target="_blank" rel="noopener">https://www.cert.ssi.gouv.fr/cti/</a>
+              </div>
+            </td>
+            <td>
+              <span class="veille-note">Articles de blogs cyber en tout genre</span>
+            </td>
+            <td>
+              <div class="veille-links">
+                <a href="https://www.cnil.fr/fr/rss.xml" target="_blank" rel="noopener">https://www.cnil.fr/fr/rss.xml</a>
+                <a href="https://linc.cnil.fr/rss.xml" target="_blank" rel="noopener">https://linc.cnil.fr/rss.xml</a>
+                <a href="https://video.cnil.fr/feeds/videos.xml?videoChannelId=9" target="_blank" rel="noopener">https://video.cnil.fr/feeds/videos.xml?videoChannelId=9</a>
+                <a href="https://video.cnil.fr/feeds/videos.xml?videoChannelId=6" target="_blank" rel="noopener">https://video.cnil.fr/feeds/videos.xml?videoChannelId=6</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div id="panel-sante" class="feed-panel active" style="max-height:600px;overflow-y:auto;"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
-    <div id="panel-menaces" class="feed-panel" style="max-height:600px;overflow-y:auto;"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
-    <div id="panel-rgpd" class="feed-panel" style="max-height:600px;overflow-y:auto;"><div class="feed-loading"><span class="spinner"></span>Chargement…</div></div>
   </div>
 
   <!-- CYBERVEILLE ANS -->
